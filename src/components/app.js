@@ -1,14 +1,15 @@
 import React from 'react';
 
 import TodoList from './todo-list';
-import ItemAddForm from './item-add-form'
+import ItemAddForm from './item-add-form';
+import './app.css';
 
 export default class App extends React.Component {
 
     state = {
         todoData: [
             this.createTodoItem('Drink Coffee', 12),
-            this.createTodoItem('Have a Lunch', 4)
+            this.createTodoItem('Feed a cat', 4)
         ]
     };
 
@@ -37,7 +38,7 @@ export default class App extends React.Component {
     render () {
         const todoData = this.state.todoData;
         return (
-            <div>
+            <div className='container app'>
                 <h1>Hello world</h1>
                 <ItemAddForm todos = {todoData}/>
                 <TodoList todos={todoData}

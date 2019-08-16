@@ -16,7 +16,7 @@ const TodoList = ({todos, onDeleted}) => {
     });
 
     return (
-        <ul>
+        <ul className="todo-list">
             {elements}
         </ul>
     );

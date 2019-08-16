@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './todo-list-item.css'
+
 const TodoListItem = ({id, label, onDeleted}) => {
     return (
         <span className="todo-list-item">

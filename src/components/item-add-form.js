@@ -2,7 +2,9 @@ import React from 'react';
 
 const ItemAddForm = () => {
     return (
-        <h2>ItemAddForm</h2>
+        <div className="form-group">
+            <input type="text" className="form-control" placeholder="Add new item" id="inputDefault"/>
+        </div>
     );
 };
 
