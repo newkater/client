@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid';
 
 import TodoList from './todo-list';
 import ItemAddForm from './item-add-form';
@@ -35,6 +36,15 @@ export default class App extends React.Component {
         });
     };
 
+    addItem = (text) => {
+        const newItem = {label: text, id: parseInt(Date.now())};
+        console.log(newItem);
+        axios.post('http://localhost:7000/item', newItem)
+            .then(res => {
+                this.setState({todoData: [...this.state.todoData, newItem]});
+            });
+    };
+
     createTodoItem(label, id) {
         return {
             label,
@@ -48,7 +58,7 @@ export default class App extends React.Component {
         return (
             <div className='container app'>
                 <h1>Hello world</h1>
-                <ItemAddForm/>
+                <ItemAddForm addItem={this.addItem}/>
                 <TodoList todos={todoData}
                           onDeleted={(id) => this.deleteItem(id)}/>
             </div>
