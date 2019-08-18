@@ -22,6 +22,7 @@ export default class App extends React.Component {
     }
 
     deleteItem = (id) => {
+        // console.log('deleting ', id);
         axios.delete(`http://localhost:7000/item/${id}`)
             .then (res => {
                 const newArray = this.state.todoData.filter((item) => item.id !== id);
@@ -29,9 +30,17 @@ export default class App extends React.Component {
             });
     };
 
+    updateItem = (item) => {
+        axios.patch(`http://localhost:7000/item/${item.id}`, item)
+            .then (res => {
+                const newArray = this.state.todoData.map((el) => (el.id === item.id ? item : el));
+                this.setState({todoData: newArray});
+            });
+    };
+
     addItem = (text) => {
         const newItem = {label: text, id: (parseInt(Date.now()) % 100000000)};
-        console.log(newItem);
+        // console.log(newItem);
         axios.post('http://localhost:7000/item', newItem)
             .then(res => {
                 this.setState({todoData: [...this.state.todoData, newItem]});
@@ -53,7 +62,8 @@ export default class App extends React.Component {
                 <h1>Hello world</h1>
                 <ItemAddForm addItem={this.addItem}/>
                 <TodoList todos={todoData}
-                          onDeleted={(id) => this.deleteItem(id)}/>
+                          onDeleted={this.deleteItem}
+                          onUpdated={this.updateItem}/>
             </div>
         );
     };
