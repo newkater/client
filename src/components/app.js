@@ -22,22 +22,15 @@ export default class App extends React.Component {
     }
 
     deleteItem = (id) => {
-        this.setState(({todoData}) => {
-            const idx = todoData.findIndex((el) => (el.id === id));
-
-            const newArray = [
-                ...todoData.slice(0, idx),
-                ...todoData.slice(idx + 1)
-            ];
-
-            return {
-                todoData: newArray
-            };
-        });
+        axios.delete(`http://localhost:7000/item/${id}`)
+            .then (res => {
+                const newArray = this.state.todoData.filter((item) => item.id !== id);
+                this.setState({todoData: newArray});
+            });
     };
 
     addItem = (text) => {
-        const newItem = {label: text, id: parseInt(Date.now())};
+        const newItem = {label: text, id: (parseInt(Date.now()) % 100000000)};
         console.log(newItem);
         axios.post('http://localhost:7000/item', newItem)
             .then(res => {
